@@ -1,0 +1,18 @@
+﻿USE model;
+GO
+
+CREATE DATABASE UsersDB;
+GO
+
+USE UsersDB;
+GO
+
+CREATE TABLE users
+(
+	"Login" NVARCHAR(15) NOT NULL PRIMARY KEY,
+	"Password" NVARCHAR(50) NOT NULL,
+	"Address" NVARCHAR(50) NULL,
+	"Tel" BIGINT NOT NULL,
+	"IsAdmin" BIT NOT NULL
+);
+GO
