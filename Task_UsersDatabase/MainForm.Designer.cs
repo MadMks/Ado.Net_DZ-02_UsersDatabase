@@ -61,6 +61,7 @@
             this.checkBoxShowAdmin.TabIndex = 2;
             this.checkBoxShowAdmin.Text = "Показывать администраторов";
             this.checkBoxShowAdmin.UseVisualStyleBackColor = true;
+            this.checkBoxShowAdmin.CheckedChanged += new System.EventHandler(this.checkBoxShowAdmin_CheckedChanged);
             // 
             // listBoxUsersName
             // 
