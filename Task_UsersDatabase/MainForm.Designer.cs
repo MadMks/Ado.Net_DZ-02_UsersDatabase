@@ -42,6 +42,7 @@
             this.buttonAddUser.TabIndex = 0;
             this.buttonAddUser.Text = "Добавить";
             this.buttonAddUser.UseVisualStyleBackColor = true;
+            this.buttonAddUser.Click += new System.EventHandler(this.buttonAddUser_Click);
             // 
             // buttonDelUser
             // 

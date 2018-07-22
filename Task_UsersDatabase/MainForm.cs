@@ -100,6 +100,11 @@ namespace Task_UsersDatabase
 
         private void checkBoxShowAdmin_CheckedChanged(object sender, EventArgs e)
         {
+            this.FillListBox();
+        }
+
+        private void FillListBox()
+        {
             this.listBoxUsersName.Items.Clear();
 
             if (this.checkBoxShowAdmin.Checked)
@@ -109,6 +114,22 @@ namespace Task_UsersDatabase
             else
             {
                 this.AddingLoginsToTheList(false);
+            }
+        }
+
+        private void buttonAddUser_Click(object sender, EventArgs e)
+        {
+            AdditiomForm additiomForm = new AdditiomForm(this.dataSet.Tables["table"]);
+
+            if (additiomForm.ShowDialog() == DialogResult.OK)
+            {
+                // добавить в датасет из свойства формы
+
+
+                this.dataAdapter.Update(this.dataSet);
+                //this.dataAdapter.Fill(this.dataSet);
+
+                this.FillListBox();
             }
         }
     }
