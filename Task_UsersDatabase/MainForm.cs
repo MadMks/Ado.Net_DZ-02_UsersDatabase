@@ -154,5 +154,31 @@ namespace Task_UsersDatabase
                 }
             }
         }
+
+        private void buttonDelUser_Click(object sender, EventArgs e)
+        {
+            if (this.RequestConfirmationDeletion())
+            {
+                string filterString
+                    = "Login = '"
+                    + (this.listBoxUsersName.SelectedItem as string)
+                    + "'";
+                (this.dataSet.Tables["table"].Select(filterString)
+                    )[0].Delete();
+
+                this.dataAdapter.Update(this.dataSet);
+                this.FillListBox();
+                //this.dataSet.Tables[0].
+            }
+        }
+
+        private bool RequestConfirmationDeletion()
+        {
+            return MessageBox.Show(
+                "Вы действительно хотите безвозвратно удалить этого пользователя?",
+                "Удалить пользователя",
+                MessageBoxButtons.YesNo
+                ) == DialogResult.Yes;
+        }
     }
 }

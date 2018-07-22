@@ -52,6 +52,7 @@
             this.buttonDelUser.TabIndex = 1;
             this.buttonDelUser.Text = "Удалить";
             this.buttonDelUser.UseVisualStyleBackColor = true;
+            this.buttonDelUser.Click += new System.EventHandler(this.buttonDelUser_Click);
             // 
             // checkBoxShowAdmin
             // 

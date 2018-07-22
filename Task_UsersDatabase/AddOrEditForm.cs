@@ -24,16 +24,8 @@ namespace Task_UsersDatabase
         {
             InitializeComponent();
 
-            //this.Load += AddOrEditForm_Load;
-            //this.comboBoxAdmin.Items.Add("False");
-            //this.comboBoxAdmin.Items.Add("True");
-
-            //this.comboBoxAdmin.SelectedIndex = 0;
-
             this.editingTable = table;
 
-            //this.Text = "Добавление пользователя";
-            //this.isAddition = true;
             this.Load += AddForm_Load;
         }
 
@@ -43,30 +35,16 @@ namespace Task_UsersDatabase
         {
             InitializeComponent();
 
-            //this.Load += AddOrEditForm_Load;
-            //this.comboBoxAdmin.Items.Add("False");
-            //this.comboBoxAdmin.Items.Add("True");
-
-            //this.comboBoxAdmin.SelectedIndex = 0;
-
             this.editingTable = table;
-
-            //this.Text = "Редактирование пользователя";
-            //this.isAddition = false;
             this.editingUser = selectedUser;
 
-            //this.FillingUserData();
             this.Load += EditForm_Load;
 
         }
 
         private void EditForm_Load(object sender, EventArgs e)
         {
-            this.comboBoxAdmin.Items.Add("False");
-            this.comboBoxAdmin.Items.Add("True");
-
-            this.comboBoxAdmin.SelectedIndex = 0;
-
+            this.ComboBoxConfiguration();
 
             this.Text = "Редактирование пользователя";
             this.isAddition = false;
@@ -74,15 +52,25 @@ namespace Task_UsersDatabase
             this.FillingUserData();
         }
 
+        
+
         private void AddForm_Load(object sender, EventArgs e)
+        {
+            this.ComboBoxConfiguration();
+
+            this.Text = "Добавление пользователя";
+            this.isAddition = true;
+        }
+
+        /// <summary>
+        /// Настройка comboBox.
+        /// </summary>
+        private void ComboBoxConfiguration()
         {
             this.comboBoxAdmin.Items.Add("False");
             this.comboBoxAdmin.Items.Add("True");
 
             this.comboBoxAdmin.SelectedIndex = 0;
-
-            this.Text = "Добавление пользователя";
-            this.isAddition = true;
         }
 
         /// <summary>
@@ -95,19 +83,7 @@ namespace Task_UsersDatabase
             this.textBoxAddress.Text = GetTheValueOfTheCurrentUser("Address");
             this.textBoxTel.Text = GetTheValueOfTheCurrentUser("Tel");
 
-
-
-            switch (GetTheValueOfTheCurrentUser("IsAdmin"))
-            {
-                case "False":
-                    this.comboBoxAdmin.SelectedIndex = 0;
-                    break;
-                case "True":
-                    this.comboBoxAdmin.SelectedIndex = 1;
-                    break;
-                default:
-                    break;
-            }
+            this.comboBoxAdmin.SelectedItem = GetTheValueOfTheCurrentUser("IsAdmin");
         }
 
         private string GetTheValueOfTheCurrentUser(string columnName)
@@ -117,13 +93,6 @@ namespace Task_UsersDatabase
             return (this.editingTable.Select(filterString))[0][columnName].ToString();
         }
 
-        private void AddOrEditForm_Load(object sender, EventArgs e)
-        {
-            //this.comboBoxAdmin.Items.Add("False");
-            //this.comboBoxAdmin.Items.Add("True");
-
-            //this.comboBoxAdmin.SelectedIndex = 0;
-        }
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
@@ -135,6 +104,8 @@ namespace Task_UsersDatabase
             // TODO проверка на пустые текстбоксы
             // TODO проверка на цыфры в телефоне
             // TODO проверка на длину вводимых данных (имя, пароль, адрес, телефон?)
+
+            // TODO проверка на повтор логина
 
             if (this.isAddition)
             {
