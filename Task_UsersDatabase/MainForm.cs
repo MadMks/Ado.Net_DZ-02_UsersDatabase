@@ -26,7 +26,10 @@ namespace Task_UsersDatabase
             InitializeComponent();
 
             this.Load += MainForm_Load;
+            this.listBoxUsersName.MouseDoubleClick += ListBoxUsersName_MouseDoubleClick;
         }
+
+        
 
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -119,9 +122,10 @@ namespace Task_UsersDatabase
 
         private void buttonAddUser_Click(object sender, EventArgs e)
         {
-            AdditiomForm additiomForm = new AdditiomForm(this.dataSet.Tables["table"]);
+            // Открываем модальный диалог добавления пользователя.
+            AddOrEditForm addForm = new AddOrEditForm(this.dataSet.Tables["table"]);
 
-            if (additiomForm.ShowDialog() == DialogResult.OK)
+            if (addForm.ShowDialog() == DialogResult.OK)
             {
                 // добавить в датасет из свойства формы
 
@@ -130,6 +134,24 @@ namespace Task_UsersDatabase
                 //this.dataAdapter.Fill(this.dataSet);
 
                 this.FillListBox();
+            }
+        }
+
+        private void ListBoxUsersName_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (this.listBoxUsersName.SelectedIndex != -1)
+            {
+                //MessageBox.Show(this.listBoxUsersName.SelectedItem as string);
+                // Открываем модальный диалог редактирования пользователя.
+                AddOrEditForm editForm = new AddOrEditForm(
+                        this.dataSet.Tables["table"], this.listBoxUsersName.SelectedItem as string);
+
+                if (editForm.ShowDialog() == DialogResult.OK)
+                {
+                    this.dataAdapter.Update(this.dataSet);
+
+                    this.FillListBox();
+                }
             }
         }
     }

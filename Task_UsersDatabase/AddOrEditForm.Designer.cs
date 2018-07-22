@@ -1,6 +1,6 @@
 ﻿namespace Task_UsersDatabase
 {
-    partial class AdditiomForm
+    partial class AddOrEditForm
     {
         /// <summary>
         /// Required designer variable.
