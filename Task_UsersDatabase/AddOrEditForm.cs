@@ -96,9 +96,8 @@ namespace Task_UsersDatabase
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            if (false)   // пустые текстбоксы
+            if (this.IsEnteredDataIsNotCorrect())   // пустые текстбоксы
             {
-                MessageBox.Show("Заполните все поля!");
                 return;
             }
             // TODO проверка на пустые текстбоксы
@@ -117,6 +116,30 @@ namespace Task_UsersDatabase
             }
 
             this.DialogResult = DialogResult.OK;
+        }
+
+        /// <summary>
+        /// Введенные данные некорректны.
+        /// </summary>
+        /// <returns>true если введенные данные некорректны.</returns>
+        private bool IsEnteredDataIsNotCorrect()
+        {
+            if (this.IsOneOfTheFieldsIsEmpty())
+            {
+                MessageBox.Show("Заполните все поля!");
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Одно из полей пустое.
+        /// </summary>
+        /// <returns></returns>
+        private bool IsOneOfTheFieldsIsEmpty()
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
