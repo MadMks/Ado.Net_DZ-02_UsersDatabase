@@ -98,6 +98,7 @@ namespace Task_UsersDatabase
         {
             if (this.IsEnteredDataIsNotCorrect())   // пустые текстбоксы
             {
+                //this.DialogResult = DialogResult.Cancel;
                 return;
             }
             // TODO проверка на пустые текстбоксы
@@ -129,6 +130,31 @@ namespace Task_UsersDatabase
                 MessageBox.Show("Заполните все поля!");
                 return true;
             }
+            else if (this.IsEnteredLoginAlreadyExistsInTheDatabase())
+            {
+                MessageBox.Show("Введенный логин уже существует в базе данных.");
+                return true;
+            }
+            //else if (true)
+            //{
+            //    // 
+            //}
+
+            return false;
+        }
+
+        /// <summary>
+        /// Введенный логин уже существует в базе данных.
+        /// </summary>
+        /// <returns>true если логин занят.</returns>
+        private bool IsEnteredLoginAlreadyExistsInTheDatabase()
+        {
+            string filterString = "Login = '" + this.textBoxLogin.Text + "'";
+
+            if (this.editingTable.Select(filterString).Length > 0)
+            {
+                return true;
+            }
 
             return false;
         }
@@ -136,10 +162,18 @@ namespace Task_UsersDatabase
         /// <summary>
         /// Одно из полей пустое.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>true если одно из полей текстБокса пустое.</returns>
         private bool IsOneOfTheFieldsIsEmpty()
         {
-            throw new NotImplementedException();
+            if (this.textBoxLogin.Text.Length == 0
+                || this.textBoxPass.Text.Length == 0
+                || this.textBoxAddress.Text.Length == 0
+                || this.textBoxTel.Text.Length == 0)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -186,6 +220,15 @@ namespace Task_UsersDatabase
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
+        }
+
+        private void textBoxLogin_TextChanged(object sender, EventArgs e)
+        {
+            this.textBoxLogin.Text = this.textBoxLogin.Text.Replace(" ", "");
+            this.textBoxLogin.SelectionStart = this.textBoxLogin.Text.Length;
+
+            this.textBoxPass.Text = this.textBoxPass.Text.Replace(" ", "");
+            this.textBoxPass.SelectionStart = this.textBoxPass.Text.Length;
         }
     }
 }

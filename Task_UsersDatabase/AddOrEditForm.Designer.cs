@@ -68,6 +68,7 @@
             this.textBoxLogin.Name = "textBoxLogin";
             this.textBoxLogin.Size = new System.Drawing.Size(209, 21);
             this.textBoxLogin.TabIndex = 2;
+            this.textBoxLogin.TextChanged += new System.EventHandler(this.textBoxLogin_TextChanged);
             // 
             // labelLogin
             // 
@@ -144,7 +145,7 @@
             this.comboBoxAdmin.Size = new System.Drawing.Size(121, 21);
             this.comboBoxAdmin.TabIndex = 11;
             // 
-            // AdditiomForm
+            // AddOrEditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -161,7 +162,7 @@
             this.Controls.Add(this.textBoxLogin);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOk);
-            this.Name = "AdditiomForm";
+            this.Name = "AddOrEditForm";
             this.Text = "AdditiomForm";
             this.ResumeLayout(false);
             this.PerformLayout();
