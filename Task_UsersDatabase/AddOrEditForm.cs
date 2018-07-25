@@ -180,7 +180,6 @@ namespace Task_UsersDatabase
         {
             if (this.textBoxLogin.Text.Length == 0
                 || this.textBoxPass.Text.Length == 0
-                || this.textBoxAddress.Text.Length == 0
                 || !this.maskedTextBoxTel.MaskCompleted)
             {
                 return true;
