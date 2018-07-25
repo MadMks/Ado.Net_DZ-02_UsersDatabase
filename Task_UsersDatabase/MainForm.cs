@@ -156,22 +156,28 @@ namespace Task_UsersDatabase
 
         private void buttonDelUser_Click(object sender, EventArgs e)
         {
-            if (this.RequestConfirmationDeletion())
+            if (this.listBoxUsersName.SelectedIndex != -1)
             {
-                string filterString
-                    = "Login = '"
-                    + (this.listBoxUsersName.SelectedItem as string)
-                    + "'";
-                (this.dataSet.Tables["table"].Select(filterString)
-                    )[0].Delete();
+                if (this.IsRequestConfirmationDeletion())
+                {
+                    string filterString
+                        = "Login = '"
+                        + (this.listBoxUsersName.SelectedItem as string)
+                        + "'";
+                    (this.dataSet.Tables["table"].Select(filterString)
+                        )[0].Delete();
 
-                this.dataAdapter.Update(this.dataSet);
-                this.FillListBox();
-                //this.dataSet.Tables[0].
+                    this.dataAdapter.Update(this.dataSet);
+                    this.FillListBox();
+                }
             }
         }
 
-        private bool RequestConfirmationDeletion()
+        /// <summary>
+        /// Запрос на подтверждение удаления пользователя.
+        /// </summary>
+        /// <returns>true если нужно удалить пользователя.</returns>
+        private bool IsRequestConfirmationDeletion()
         {
             return MessageBox.Show(
                 "Вы действительно хотите безвозвратно удалить этого пользователя?",
