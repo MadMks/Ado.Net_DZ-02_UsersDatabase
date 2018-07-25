@@ -38,10 +38,8 @@
             this.labelAdmin = new System.Windows.Forms.Label();
             this.textBoxPass = new System.Windows.Forms.TextBox();
             this.textBoxAddress = new System.Windows.Forms.TextBox();
-            this.textBoxTel = new System.Windows.Forms.TextBox();
             this.comboBoxAdmin = new System.Windows.Forms.ComboBox();
             this.maskedTextBoxTel = new System.Windows.Forms.MaskedTextBox();
-            this.labeltest = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -67,10 +65,11 @@
             // textBoxLogin
             // 
             this.textBoxLogin.Location = new System.Drawing.Point(111, 22);
+            this.textBoxLogin.MaxLength = 15;
             this.textBoxLogin.Name = "textBoxLogin";
             this.textBoxLogin.Size = new System.Drawing.Size(209, 21);
             this.textBoxLogin.TabIndex = 2;
-            this.textBoxLogin.TextChanged += new System.EventHandler(this.textBoxLogin_TextChanged);
+            this.textBoxLogin.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxLogin_KeyPress);
             // 
             // labelLogin
             // 
@@ -120,23 +119,19 @@
             // textBoxPass
             // 
             this.textBoxPass.Location = new System.Drawing.Point(111, 54);
+            this.textBoxPass.MaxLength = 50;
             this.textBoxPass.Name = "textBoxPass";
             this.textBoxPass.Size = new System.Drawing.Size(209, 21);
             this.textBoxPass.TabIndex = 8;
+            this.textBoxPass.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxPass_KeyPress);
             // 
             // textBoxAddress
             // 
             this.textBoxAddress.Location = new System.Drawing.Point(111, 88);
+            this.textBoxAddress.MaxLength = 50;
             this.textBoxAddress.Name = "textBoxAddress";
             this.textBoxAddress.Size = new System.Drawing.Size(209, 21);
             this.textBoxAddress.TabIndex = 9;
-            // 
-            // textBoxTel
-            // 
-            this.textBoxTel.Location = new System.Drawing.Point(111, 120);
-            this.textBoxTel.Name = "textBoxTel";
-            this.textBoxTel.Size = new System.Drawing.Size(209, 21);
-            this.textBoxTel.TabIndex = 10;
             // 
             // comboBoxAdmin
             // 
@@ -149,33 +144,22 @@
             // 
             // maskedTextBoxTel
             // 
-            this.maskedTextBoxTel.Location = new System.Drawing.Point(50, 177);
+            this.maskedTextBoxTel.Location = new System.Drawing.Point(111, 122);
             this.maskedTextBoxTel.Mask = "00(000)-000-00-00";
             this.maskedTextBoxTel.Name = "maskedTextBoxTel";
             this.maskedTextBoxTel.ResetOnSpace = false;
-            this.maskedTextBoxTel.Size = new System.Drawing.Size(274, 21);
+            this.maskedTextBoxTel.Size = new System.Drawing.Size(209, 21);
             this.maskedTextBoxTel.TabIndex = 12;
             this.maskedTextBoxTel.Text = "38";
             this.maskedTextBoxTel.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
-            // 
-            // labeltest
-            // 
-            this.labeltest.AutoSize = true;
-            this.labeltest.Location = new System.Drawing.Point(248, 158);
-            this.labeltest.Name = "labeltest";
-            this.labeltest.Size = new System.Drawing.Size(35, 13);
-            this.labeltest.TabIndex = 13;
-            this.labeltest.Text = "label1";
             // 
             // AddOrEditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(336, 252);
-            this.Controls.Add(this.labeltest);
             this.Controls.Add(this.maskedTextBoxTel);
             this.Controls.Add(this.comboBoxAdmin);
-            this.Controls.Add(this.textBoxTel);
             this.Controls.Add(this.textBoxAddress);
             this.Controls.Add(this.textBoxPass);
             this.Controls.Add(this.labelAdmin);
@@ -205,9 +189,7 @@
         private System.Windows.Forms.Label labelAdmin;
         private System.Windows.Forms.TextBox textBoxPass;
         private System.Windows.Forms.TextBox textBoxAddress;
-        private System.Windows.Forms.TextBox textBoxTel;
         private System.Windows.Forms.ComboBox comboBoxAdmin;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxTel;
-        private System.Windows.Forms.Label labeltest;
     }
 }

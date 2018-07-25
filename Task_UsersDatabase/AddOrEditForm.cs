@@ -13,9 +13,6 @@ namespace Task_UsersDatabase
 {
     public partial class AddOrEditForm : Form
     {
-        //public DataRow AdditionRow { get; set; }
-        //public DataTable AdditionTable { get; set; }
-
         private DataTable editingTable;
         private bool isAddition;
         private string editingUser;
@@ -28,8 +25,6 @@ namespace Task_UsersDatabase
 
             this.Load += AddForm_Load;
 
-            // HACK TEMP
-            this.maskedTextBoxTel.TextChanged += MaskedTextBoxTel_TextChanged;
         }
 
         
@@ -54,15 +49,6 @@ namespace Task_UsersDatabase
             this.FillingUserData();
         }
 
-        private void MaskedTextBoxTel_TextChanged(object sender, EventArgs e)
-        {
-            //this.maskedTextBoxTel.Text = this.maskedTextBoxTel.Text.Replace("(", "");
-            //this.labeltest.Text = this.maskedTextBoxTel.Text.Replace("(", "").Replace(")", "").Replace(" ", "");
-            
-            this.labeltest.Text = this.maskedTextBoxTel.Text;
-
-            //MessageBox.Show(this.maskedTextBoxTel.Text.Length.ToString());
-        }
 
         private void AddForm_Load(object sender, EventArgs e)
         {
@@ -91,7 +77,6 @@ namespace Task_UsersDatabase
             this.textBoxLogin.Text = GetTheValueOfTheCurrentUser("Login");
             this.textBoxPass.Text = GetTheValueOfTheCurrentUser("Password");
             this.textBoxAddress.Text = GetTheValueOfTheCurrentUser("Address");
-            //this.textBoxTel.Text = GetTheValueOfTheCurrentUser("Tel");
             this.maskedTextBoxTel.Text = GetTheValueOfTheCurrentUser("Tel");
             this.comboBoxAdmin.SelectedItem = GetTheValueOfTheCurrentUser("IsAdmin");
         }
@@ -106,16 +91,8 @@ namespace Task_UsersDatabase
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            //if (!this.isAddition)
-            //{
-            //    string filterString = "Login = '" + this.editingUser + "'";
-
-            //    (this.editingTable.Select(filterString))[0].Delete();
-            //}
-
             if (this.IsEnteredDataIsNotCorrect())   // пустые текстбоксы
             {
-                //this.DialogResult = DialogResult.Cancel;
                 return;
             }
             // TODO проверка на пустые текстбоксы
@@ -204,7 +181,6 @@ namespace Task_UsersDatabase
             if (this.textBoxLogin.Text.Length == 0
                 || this.textBoxPass.Text.Length == 0
                 || this.textBoxAddress.Text.Length == 0
-                /*|| this.textBoxTel.Text.Length == 0*/
                 || !this.maskedTextBoxTel.MaskCompleted)
             {
                 return true;
@@ -223,9 +199,8 @@ namespace Task_UsersDatabase
             DataRow editRow = (this.editingTable.Select(filterString))[0];
 
             editRow[0] = this.textBoxLogin.Text;
-            editRow[1] = this.textBoxPass.Text;
+            editRow[1] = this.textBoxPass.Text.GetHashCode();
             editRow[2] = this.textBoxAddress.Text;
-            //editRow[3] = this.textBoxTel.Text;
             editRow[3] = this.maskedTextBoxTel.Text;
             editRow[4] = this.comboBoxAdmin.Text;
         }
@@ -238,9 +213,8 @@ namespace Task_UsersDatabase
             DataRow addRow = this.editingTable.NewRow();
 
             addRow[0] = this.textBoxLogin.Text;
-            addRow[1] = this.textBoxPass.Text;
+            addRow[1] = this.textBoxPass.Text.GetHashCode();
             addRow[2] = this.textBoxAddress.Text;
-            //addRow[3] = this.textBoxTel.Text;
             addRow[3] = this.maskedTextBoxTel.Text;
             addRow[4] = this.comboBoxAdmin.Text;
 
@@ -253,14 +227,25 @@ namespace Task_UsersDatabase
             this.DialogResult = DialogResult.Cancel;
         }
 
-        private void textBoxLogin_TextChanged(object sender, EventArgs e)
+        private void textBoxLogin_KeyPress(object sender, KeyPressEventArgs e)
         {
-            this.textBoxLogin.Text = this.textBoxLogin.Text.Replace(" ", "");
-            this.textBoxLogin.SelectionStart = this.textBoxLogin.Text.Length;
-
-            this.textBoxPass.Text = this.textBoxPass.Text.Replace(" ", "");
-            this.textBoxPass.SelectionStart = this.textBoxPass.Text.Length;
+            this.SkipTheSpacebar(e);
         }
 
+        private void textBoxPass_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            this.SkipTheSpacebar(e);
+        }
+
+        /// <summary>
+        /// Пропустить нажатие пробела.
+        /// </summary>
+        private void SkipTheSpacebar(KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 32)
+            {
+                e.Handled = true;
+            }
+        }
     }
 }
