@@ -122,7 +122,7 @@
             this.textBoxPass.MaxLength = 50;
             this.textBoxPass.Name = "textBoxPass";
             this.textBoxPass.Size = new System.Drawing.Size(209, 21);
-            this.textBoxPass.TabIndex = 8;
+            this.textBoxPass.TabIndex = 3;
             this.textBoxPass.UseSystemPasswordChar = true;
             this.textBoxPass.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxPass_KeyPress);
             // 
@@ -132,7 +132,7 @@
             this.textBoxAddress.MaxLength = 50;
             this.textBoxAddress.Name = "textBoxAddress";
             this.textBoxAddress.Size = new System.Drawing.Size(209, 21);
-            this.textBoxAddress.TabIndex = 9;
+            this.textBoxAddress.TabIndex = 4;
             // 
             // comboBoxAdmin
             // 
@@ -141,7 +141,7 @@
             this.comboBoxAdmin.Location = new System.Drawing.Point(111, 157);
             this.comboBoxAdmin.Name = "comboBoxAdmin";
             this.comboBoxAdmin.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxAdmin.TabIndex = 11;
+            this.comboBoxAdmin.TabIndex = 6;
             // 
             // maskedTextBoxTel
             // 
@@ -150,7 +150,7 @@
             this.maskedTextBoxTel.Name = "maskedTextBoxTel";
             this.maskedTextBoxTel.ResetOnSpace = false;
             this.maskedTextBoxTel.Size = new System.Drawing.Size(209, 21);
-            this.maskedTextBoxTel.TabIndex = 12;
+            this.maskedTextBoxTel.TabIndex = 5;
             this.maskedTextBoxTel.Text = "38";
             this.maskedTextBoxTel.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             // 
@@ -171,6 +171,8 @@
             this.Controls.Add(this.textBoxLogin);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOk);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "AddOrEditForm";
             this.Text = "AdditiomForm";
             this.ResumeLayout(false);

@@ -123,6 +123,14 @@ namespace Task_UsersDatabase
 
         private void ListBoxUsersName_MouseDoubleClick(object sender, MouseEventArgs e)
         {
+            this.EditingTheSelectedUser();
+        }
+
+        /// <summary>
+        /// Редактирование выбранного пользователя.
+        /// </summary>
+        private void EditingTheSelectedUser()
+        {
             if (this.listBoxUsersName.SelectedIndex != -1)
             {
                 // Открываем модальный диалог редактирования пользователя.
@@ -168,6 +176,24 @@ namespace Task_UsersDatabase
                 "Удалить пользователя",
                 MessageBoxButtons.YesNo
                 ) == DialogResult.Yes;
+        }
+
+        private void listBoxUsersName_Enter(object sender, EventArgs e)
+        {
+            this.listBoxUsersName.BackColor = Color.AliceBlue;
+        }
+
+        private void listBoxUsersName_Leave(object sender, EventArgs e)
+        {
+            this.listBoxUsersName.BackColor = Color.White;
+        }
+
+        private void listBoxUsersName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)    // если нажали Enter.
+            {
+                this.EditingTheSelectedUser();
+            }
         }
     }
 }
