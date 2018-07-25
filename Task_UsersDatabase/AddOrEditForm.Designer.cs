@@ -123,6 +123,7 @@
             this.textBoxPass.Name = "textBoxPass";
             this.textBoxPass.Size = new System.Drawing.Size(209, 21);
             this.textBoxPass.TabIndex = 8;
+            this.textBoxPass.UseSystemPasswordChar = true;
             this.textBoxPass.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxPass_KeyPress);
             // 
             // textBoxAddress
