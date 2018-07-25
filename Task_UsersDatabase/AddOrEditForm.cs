@@ -27,6 +27,9 @@ namespace Task_UsersDatabase
             this.editingTable = table;
 
             this.Load += AddForm_Load;
+
+            // HACK TEMP
+            this.maskedTextBoxTel.TextChanged += MaskedTextBoxTel_TextChanged;
         }
 
         
@@ -39,7 +42,6 @@ namespace Task_UsersDatabase
             this.editingUser = selectedUser;
 
             this.Load += EditForm_Load;
-
         }
 
         private void EditForm_Load(object sender, EventArgs e)
@@ -52,7 +54,15 @@ namespace Task_UsersDatabase
             this.FillingUserData();
         }
 
-        
+        private void MaskedTextBoxTel_TextChanged(object sender, EventArgs e)
+        {
+            //this.maskedTextBoxTel.Text = this.maskedTextBoxTel.Text.Replace("(", "");
+            //this.labeltest.Text = this.maskedTextBoxTel.Text.Replace("(", "").Replace(")", "").Replace(" ", "");
+            
+            this.labeltest.Text = this.maskedTextBoxTel.Text;
+
+            //MessageBox.Show(this.maskedTextBoxTel.Text.Length.ToString());
+        }
 
         private void AddForm_Load(object sender, EventArgs e)
         {
@@ -81,8 +91,8 @@ namespace Task_UsersDatabase
             this.textBoxLogin.Text = GetTheValueOfTheCurrentUser("Login");
             this.textBoxPass.Text = GetTheValueOfTheCurrentUser("Password");
             this.textBoxAddress.Text = GetTheValueOfTheCurrentUser("Address");
-            this.textBoxTel.Text = GetTheValueOfTheCurrentUser("Tel");
-
+            //this.textBoxTel.Text = GetTheValueOfTheCurrentUser("Tel");
+            this.maskedTextBoxTel.Text = GetTheValueOfTheCurrentUser("Tel");
             this.comboBoxAdmin.SelectedItem = GetTheValueOfTheCurrentUser("IsAdmin");
         }
 
@@ -96,6 +106,13 @@ namespace Task_UsersDatabase
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
+            //if (!this.isAddition)
+            //{
+            //    string filterString = "Login = '" + this.editingUser + "'";
+
+            //    (this.editingTable.Select(filterString))[0].Delete();
+            //}
+
             if (this.IsEnteredDataIsNotCorrect())   // пустые текстбоксы
             {
                 //this.DialogResult = DialogResult.Cancel;
@@ -151,7 +168,26 @@ namespace Task_UsersDatabase
         {
             string filterString = "Login = '" + this.textBoxLogin.Text + "'";
 
-            if (this.editingTable.Select(filterString).Length > 0)
+            if (this.IsWhenEditingLeaveTheOldLogin())
+            {
+                return false;
+            }
+            else if (this.editingTable.Select(filterString).Length > 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// При редактировании оставляем старый логин (логин без изменений).
+        /// </summary>
+        /// <returns>true если логин без изменений.</returns>
+        private bool IsWhenEditingLeaveTheOldLogin()
+        {
+            if (!this.isAddition
+                && this.editingUser == this.textBoxLogin.Text)
             {
                 return true;
             }
@@ -168,7 +204,8 @@ namespace Task_UsersDatabase
             if (this.textBoxLogin.Text.Length == 0
                 || this.textBoxPass.Text.Length == 0
                 || this.textBoxAddress.Text.Length == 0
-                || this.textBoxTel.Text.Length == 0)
+                /*|| this.textBoxTel.Text.Length == 0*/
+                || !this.maskedTextBoxTel.MaskCompleted)
             {
                 return true;
             }
@@ -188,7 +225,8 @@ namespace Task_UsersDatabase
             editRow[0] = this.textBoxLogin.Text;
             editRow[1] = this.textBoxPass.Text;
             editRow[2] = this.textBoxAddress.Text;
-            editRow[3] = this.textBoxTel.Text;
+            //editRow[3] = this.textBoxTel.Text;
+            editRow[3] = this.maskedTextBoxTel.Text;
             editRow[4] = this.comboBoxAdmin.Text;
         }
 
@@ -197,20 +235,13 @@ namespace Task_UsersDatabase
         /// </summary>
         private void AddingANewRow()
         {
-            
-
             DataRow addRow = this.editingTable.NewRow();
-
-            //addRow[0] = "test log add";
-            //addRow[1] = "test pass";
-            //addRow[2] = "test address";
-            //addRow[3] = 111;
-            //addRow[4] = "False";
 
             addRow[0] = this.textBoxLogin.Text;
             addRow[1] = this.textBoxPass.Text;
             addRow[2] = this.textBoxAddress.Text;
-            addRow[3] = this.textBoxTel.Text;
+            //addRow[3] = this.textBoxTel.Text;
+            addRow[3] = this.maskedTextBoxTel.Text;
             addRow[4] = this.comboBoxAdmin.Text;
 
 
@@ -230,5 +261,6 @@ namespace Task_UsersDatabase
             this.textBoxPass.Text = this.textBoxPass.Text.Replace(" ", "");
             this.textBoxPass.SelectionStart = this.textBoxPass.Text.Length;
         }
+
     }
 }
