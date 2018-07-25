@@ -13,10 +13,23 @@ namespace Task_UsersDatabase
 {
     public partial class AddOrEditForm : Form
     {
+        /// <summary>
+        /// Редактируемая таблица.
+        /// </summary>
         private DataTable editingTable;
+        /// <summary>
+        /// Добавление пользователя.
+        /// </summary>
         private bool isAddition;
+        /// <summary>
+        /// Редактируемый пользователь (его логин).
+        /// </summary>
         private string editingUser;
 
+        /// <summary>
+        /// Конструктор добавления пользователя.
+        /// </summary>
+        /// <param name="table">Таблица для добавления пользователя.</param>
         public AddOrEditForm(DataTable table)
         {
             InitializeComponent();
@@ -24,11 +37,13 @@ namespace Task_UsersDatabase
             this.editingTable = table;
 
             this.Load += AddForm_Load;
-
         }
 
-        
-
+        /// <summary>
+        /// Конструктор редактирования пользователя.
+        /// </summary>
+        /// <param name="table">Таблица в которой редактируем пользователя.</param>
+        /// <param name="selectedUser">Login редактируемого пользователя.</param>
         public AddOrEditForm(DataTable table, string selectedUser)
         {
             InitializeComponent();
@@ -39,6 +54,9 @@ namespace Task_UsersDatabase
             this.Load += EditForm_Load;
         }
 
+        /// <summary>
+        /// Обработчик загрузки формы редактирования.
+        /// </summary>
         private void EditForm_Load(object sender, EventArgs e)
         {
             this.ComboBoxConfiguration();
@@ -49,7 +67,9 @@ namespace Task_UsersDatabase
             this.FillingUserData();
         }
 
-
+        /// <summary>
+        /// Обработчик загрузки формы добавления.
+        /// </summary>
         private void AddForm_Load(object sender, EventArgs e)
         {
             this.ComboBoxConfiguration();
@@ -81,6 +101,11 @@ namespace Task_UsersDatabase
             this.comboBoxAdmin.SelectedItem = GetTheValueOfTheCurrentUser("IsAdmin");
         }
 
+        /// <summary>
+        /// Получение значения ячейки выбранного пользователя.
+        /// </summary>
+        /// <param name="columnName">Название колонки.</param>
+        /// <returns>Значение ячейки в виде строки.</returns>
         private string GetTheValueOfTheCurrentUser(string columnName)
         {
             string filterString = "Login = '" + this.editingUser + "'";
@@ -88,18 +113,12 @@ namespace Task_UsersDatabase
             return (this.editingTable.Select(filterString))[0][columnName].ToString();
         }
 
-
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            if (this.IsEnteredDataIsNotCorrect())   // пустые текстбоксы
+            if (this.IsEnteredDataIsNotCorrect())
             {
                 return;
             }
-            // TODO проверка на пустые текстбоксы
-            // TODO проверка на цыфры в телефоне
-            // TODO проверка на длину вводимых данных (имя, пароль, адрес, телефон?)
-
-            // TODO проверка на повтор логина
 
             if (this.isAddition)
             {
@@ -129,10 +148,6 @@ namespace Task_UsersDatabase
                 MessageBox.Show("Введенный логин уже существует в базе данных.");
                 return true;
             }
-            //else if (true)
-            //{
-            //    // 
-            //}
 
             return false;
         }

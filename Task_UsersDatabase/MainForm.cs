@@ -18,7 +18,6 @@ namespace Task_UsersDatabase
         private SqlDataAdapter dataAdapter = null;
         private DataSet dataSet = null;
         private SqlCommandBuilder commandBuilder = null;
-        private string connectionString = "";   // TODO delete !?
         private string selectQuery = "";
 
         public MainForm()
@@ -28,8 +27,6 @@ namespace Task_UsersDatabase
             this.Load += MainForm_Load;
             this.listBoxUsersName.MouseDoubleClick += ListBoxUsersName_MouseDoubleClick;
         }
-
-        
 
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -50,18 +47,6 @@ namespace Task_UsersDatabase
                 this.dataSet = new DataSet();
 
                 this.dataAdapter.Fill(this.dataSet);
-
-                // TODO можно ли привязать ListBox DataSource к DataSet ?
-                //this.listBoxUsersName.DataSource = this.dataSet.Tables[0].Select().ToList();
-                //this.listBoxUsersName.DisplayMember = (this.listBoxUsersName.DataSource as List<DataRow>).;
-                //this.listBoxUsersName.ValueMember = "Login";
-
-                // TODO вторая попытка привязки. Работает.
-                //this.listBoxUsersName.DataSource = this.dataSet.Tables["table"];
-                //this.listBoxUsersName.DisplayMember = "Login";
-
-                //this.dataSet.Tables["table"].Rows[1].Delete();
-
 
 
                 if (this.dataSet.Tables[0].Rows.Count == 0)
@@ -106,6 +91,9 @@ namespace Task_UsersDatabase
             this.FillListBox();
         }
 
+        /// <summary>
+        /// Заполнение листБокса логинами.
+        /// </summary>
         private void FillListBox()
         {
             this.listBoxUsersName.Items.Clear();
@@ -127,10 +115,7 @@ namespace Task_UsersDatabase
 
             if (addForm.ShowDialog() == DialogResult.OK)
             {
-                // добавить в датасет из свойства формы
-
                 this.dataAdapter.Update(this.dataSet);
-                //this.dataAdapter.Fill(this.dataSet);
 
                 this.FillListBox();
             }
@@ -140,7 +125,6 @@ namespace Task_UsersDatabase
         {
             if (this.listBoxUsersName.SelectedIndex != -1)
             {
-                //MessageBox.Show(this.listBoxUsersName.SelectedItem as string);
                 // Открываем модальный диалог редактирования пользователя.
                 AddOrEditForm editForm = new AddOrEditForm(
                         this.dataSet.Tables["table"], this.listBoxUsersName.SelectedItem as string);
